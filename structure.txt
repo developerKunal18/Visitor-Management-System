@@ -1,0 +1,25 @@
+Features
+- Register new visitors with their name, phone number, purpose, and person to meet.
+- Automatically generate visitor IDs.
+- Record check-in and check-out times.
+- Search visitors by name or visitor ID.
+- View currently checked-in visitors.
+- Display daily visitor reports.
+- Store records locally in JSON files.
+- Use a menu-driven command-line interface.
+
+1. Project structure
+Visitor-Management-System/
+│
+├── main.py
+├── config.py
+├── storage.py
+├── visitor_manager.py
+├── report_manager.py
+├── utils.py
+├── requirements.txt
+├── .gitignore
+├── README.md
+│
+└── data/
+    └── visitors.json
