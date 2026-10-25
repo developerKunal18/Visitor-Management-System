@@ -3,30 +3,32 @@ from config import DATA_DIR, VISITORS_FILE
 
 
 def initialize_storage():
-    """Create the data folder and JSON file if missing."""
     DATA_DIR.mkdir(parents=True, exist_ok=True)
 
     if not VISITORS_FILE.exists():
-        save_visitors([])
+        with VISITORS_FILE.open("w", encoding="utf-8") as file:
+            json.dump([], file, indent=4)
 
 
 def load_visitors():
-    """Load visitor records from JSON."""
     initialize_storage()
 
     try:
         with VISITORS_FILE.open("r", encoding="utf-8") as file:
             data = json.load(file)
 
-        return data if isinstance(data, list) else []
+        if not isinstance(data, list):
+            print("Warning: Visitor data must be a JSON list.")
+            return []
 
-    except (json.JSONDecodeError, OSError):
-        print("Warning: Could not read visitor data.")
+        return data
+
+    except (json.JSONDecodeError, OSError) as error:
+        print(f"Error reading visitor data: {error}")
         return []
 
 
 def save_visitors(visitors):
-    """Save visitor records to JSON."""
     initialize_storage()
 
     with VISITORS_FILE.open("w", encoding="utf-8") as file:
